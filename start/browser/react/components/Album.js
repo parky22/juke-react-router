@@ -10,7 +10,7 @@ export default class Album extends React.Component {
   }
 
   render(){
-    console.log("THIS.PROPS:", this.props)
+    
     return (
     <div className="album">
     

@@ -8,6 +8,8 @@ import Albums from '../components/Albums.js';
 import Album from '../components/Album';
 import Sidebar from '../components/Sidebar';
 import Player from '../components/Player';
+import Artists from '../components/Artists.js';
+import Artist from '../components/Artist.js';
 
 import { convertAlbum, convertAlbums, skip } from '../utils';
 
@@ -22,13 +24,19 @@ export default class AppContainer extends Component {
     this.next = this.next.bind(this);
     this.prev = this.prev.bind(this);
     this.selectAlbum = this.selectAlbum.bind(this);
-    this.deselectAlbum = this.deselectAlbum.bind(this);
+    
   }
 
   componentDidMount () {
     axios.get('/api/albums/')
       .then(res => res.data)
       .then(album => this.onLoad(convertAlbums(album)));
+
+    axios.get('/api/artists')
+      .then(res => res.data)
+      .then(artists => this.setState({
+        artists: artists
+      }));
 
     AUDIO.addEventListener('ended', () =>
       this.next());
@@ -38,7 +46,7 @@ export default class AppContainer extends Component {
 
   onLoad (albums) {
     this.setState({
-      albums: albums
+      albums: albums,
     });
   }
 
@@ -98,6 +106,14 @@ export default class AppContainer extends Component {
       }));
   }
 
+  selectArtist (artistId) {
+    axios.get(`/api/artists/${artistId}`)
+      .then(res => res.data)
+      .then(artist => this.setState({
+        selectedArtist: artist
+      }));
+  }
+
   // deselectAlbum () {
   //   this.setState({ selectedAlbum: {}});
   // }
@@ -119,10 +135,14 @@ export default class AppContainer extends Component {
               toggleOne: this.toggleOne,
               //Albums
               albums: this.state.albums,
-              selectAlbum: this.selectAlbum
+              selectAlbum: this.selectAlbum,
+              //Artist
+              artist: this.state.selectedArtist, 
+              artists: this.state.artists,
+              selectArtist: this.selectArtist
+
             }) : null
         }
-        {console.log("this.props.children: ",this.props.children)}
         </div>
         <Player
           currentSong={this.state.currentSong}
