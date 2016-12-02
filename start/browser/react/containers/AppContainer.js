@@ -98,9 +98,9 @@ export default class AppContainer extends Component {
       }));
   }
 
-  deselectAlbum () {
-    this.setState({ selectedAlbum: {}});
-  }
+  // deselectAlbum () {
+  //   this.setState({ selectedAlbum: {}});
+  // }
 
   render () {
     return (
@@ -116,23 +116,13 @@ export default class AppContainer extends Component {
               album: this.state.selectedAlbum,
               currentSong: this.state.currentSong,
               isPlaying: this.state.isPlaying,
-              toggle: this.toggleOne,
+              toggleOne: this.toggleOne,
               //Albums
               albums: this.state.albums,
               selectAlbum: this.selectAlbum
             }) : null
-          // this.state.selectedAlbum.id ?
-          // <Album
-          //   album={this.state.selectedAlbum}
-          //   currentSong={this.state.currentSong}
-          //   isPlaying={this.state.isPlaying}
-          //   toggleOne={this.toggleOne}
-          // /> :
-          // <Albums
-          //   albums={this.state.albums}
-          //   selectAlbum={this.selectAlbum}
-          // />
         }
+        {console.log("this.props.children: ",this.props.children)}
         </div>
         <Player
           currentSong={this.state.currentSong}

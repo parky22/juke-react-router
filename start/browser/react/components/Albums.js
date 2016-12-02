@@ -1,8 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const Albums = (props) => {
 
-  const albums = props.albums; //this.albums
+  const albums = props.albums;
   const selectAlbum = props.selectAlbum;
 
   return (
@@ -12,7 +13,7 @@ const Albums = (props) => {
       {
         albums.map(album => (
           <div className="col-xs-4" key={ album.id }>
-            <a className="thumbnail" href="#" onClick={() => selectAlbum(album.id)}>
+            <Link to={`/albums/${ album.id }` } className="thumbnail">
               <img src={ album.imageUrl } />
               <div className="caption">
                 <h5>
@@ -20,7 +21,7 @@ const Albums = (props) => {
                 </h5>
                 <small>{ album.songs.length } songs</small>
               </div>
-            </a>
+            </Link>
           </div>
         ))
       }
