@@ -2,7 +2,7 @@ import React from 'react';
 
 const Albums = (props) => {
 
-  const albums = props.albums;
+  const albums = props.albums; //this.albums
   const selectAlbum = props.selectAlbum;
 
   return (
